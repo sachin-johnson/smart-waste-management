@@ -14,3 +14,25 @@ In Australia, kerbside bin collection is managed by local councils, and proper w
 
 - **Camera:** Positioned above the kerbside bins, records videos with minimal coverage of surroundings. Motion detection triggers the camera to start recording when movement is detected.
 - **Jupyter Notebook:** Used for implementing object detection, bin identification, and privacy protection processes using Python libraries like OpenCV and TensorFlow.
+
+## Curl Commands
+
+### Command to list all the attached devices
+
+```sh
+curl.exe -H "Authorization: Bearer <Access Token>" `
+     "https://smartdevicemanagement.googleapis.com/v1/enterprises/<Project-ID>/devices"
+```
+
+### Command to generate access token
+
+```sh
+curl.exe -X POST https://oauth2.googleapis.com/token `
+-H "Content-Type: application/x-www-form-urlencoded" `
+-d "client_id=CLIENT_ID" `
+-d "client_secret=CLIENT_SECRET" `
+-d "code=AUTHORIZATION_CODE" `
+-d "grant_type=authorization_code" `
+-d "redirect_uri=REDIRECT_URI"
+```
+

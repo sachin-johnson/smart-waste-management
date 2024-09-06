@@ -1,0 +1,19 @@
+{
+  "name": "smart-waste-management",
+  "version": "1.0.0",
+  "description": "In Australia, kerbside bin collection is managed by local councils, and proper waste sorting is critical to reducing contamination. This project aims to develop an intelligent system that uses a camera and motion detection to monitor and analyze waste disposal in kerbside bins (organic, recyclable, and general waste bins). The system automatically detects when waste is placed in a bin, identifies the type of waste, and determines if it is correctly sorted. Privacy concerns are addressed by blurring the surroundings in the recorded video.",
+  "main": "stream.js",
+  "type": "module",
+  "scripts": {
+    "start": "node stream.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "webrtc": "^1.0.0",
+    "node-fetch": "^2.6.1",
+    "ws": "^7.5.0"
+  }
+}
