@@ -3,7 +3,7 @@ import google.auth
 from google_auth_oauthlib.flow import InstalledAppFlow
 import json
 import asyncio
-from aiortc import RTCPeerConnection, VideoStreamTrack
+from aiortc import RTCPeerConnection, MediaStreamTrack
 from aiortc.contrib.signaling import BYE
 import os
 from dotenv import load_dotenv
@@ -30,18 +30,46 @@ def get_credentials():
     creds = flow.run_local_server(port=8080)
     return creds
 
+class DummyAudioTrack(MediaStreamTrack):
+    kind = "audio"
+
+    async def recv(self):
+        frame = av.AudioFrame(format="s16", layout="mono", samples=960)
+        frame.pts = self.time_base * 960
+        frame.time_base = self.time_base
+        return frame
+
+class DummyVideoTrack(MediaStreamTrack):
+    kind = "video"
+
+    async def recv(self):
+        frame = av.VideoFrame(width=640, height=480)
+        frame.pts = self.time_base * 3000
+        frame.time_base = self.time_base
+        return frame
 
 async def create_offer_sdp():
     pc = RTCPeerConnection()
 
+    # Add dummy audio and video tracks
+    audio_track = DummyAudioTrack()
+    video_track = DummyVideoTrack()
+    pc.addTrack(audio_track)
+    pc.addTrack(video_track)
+
+    # Add a data channel
     pc.createDataChannel("dataChannel")
     
     # Create an SDP offer
     offer = await pc.createOffer()
     await pc.setLocalDescription(offer)
 
+    # Modify the SDP to set the audio track to recvonly
+    sdp = pc.localDescription.sdp
+    sdp = sdp.replace("a=sendrecv", "a=recvonly", 1)
+
     # Return the SDP as a string
-    return offer.sdp
+    return sdp
 
 def get_device_id(creds):
     url = f"https://smartdevicemanagement.googleapis.com/v1/enterprises/{PROJECT_ID}/devices"
@@ -75,7 +103,7 @@ def generate_webrtc_offer(creds, device_id):
         }
     }
     response = requests.post(url, headers={"Authorization": f"Bearer {creds.token}"}, json=body)
-        # Print the response for debugging
+    # Print the response for debugging
     print("Status Code:", response.status_code)
     print("Response Content:", response.content.decode("utf-8"))
     return response.json()
@@ -98,7 +126,7 @@ async def start_webrtc_stream(offer):
     @pc.on("track")
     def on_track(track):
         print(f"Track {track.kind} received")
-        local_track = VideoStreamTrack()
+        local_track = DummyVideoTrack()
         pc.addTrack(local_track)
 
     # Set the remote description and create an answer
