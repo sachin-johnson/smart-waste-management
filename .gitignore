@@ -71,3 +71,11 @@ node_modules/
 # mp4 files
 
 *.mp4
+
+# Python virtual environment
+
+venv/
+
+# credentials file
+
+credentials.json
