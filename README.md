@@ -36,3 +36,12 @@ curl.exe -X POST https://oauth2.googleapis.com/token `
 -d "redirect_uri=REDIRECT_URI"
 ```
 
+### Potentially useful dataset
+
+* https://universe.roboflow.com/jadavpur-university-vlvoc/waste-detection-vlpz1/browse?queryText=&pageSize=50&startingIndex=0&browseQuery=true - Downloaded
+* https://universe.roboflow.com/trash-dataset-for-oriented-bounded-box/trash-detection-1fjjc/browse?queryText=&pageSize=50&startingIndex=0&browseQuery=true - Downloaded
+* https://universe.roboflow.com/nora-slimani/trash-detection-otdmj/dataset/35
+* https://paperswithcode.com/dataset/taco
+* https://universe.roboflow.com/trash-annotations/trash-detection-kcsnu/browse?queryText=&pageSize=50&startingIndex=0&browseQuery=true
+* https://www.kaggle.com/datasets/cubeai/trash-detection-for-yolov8
+* https://universe.roboflow.com/yolov5wastedetection/waste-detection-yljc0/browse?queryText=&pageSize=50&startingIndex=0&browseQuery=true
