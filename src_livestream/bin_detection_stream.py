@@ -48,9 +48,10 @@ bounding_boxes = [box for box in bounding_boxes if box is not None]
 # Define labels for the bins
 bin_labels = ['Landfill', 'Recyclable', 'Organics']
 
-# Maintain the first frames and previous contour counts across function calls
+# Maintain the first frames, previous contour counts, and last update times across function calls
 first_frames = None
 previous_contour_counts = [0] * len(bounding_boxes)
+last_update_times = [0] * len(bounding_boxes)
 
 def draw_bounding_boxes(frame):
     """Draw bounding boxes for all bins."""
@@ -61,13 +62,15 @@ def draw_bounding_boxes(frame):
 def process_frame(frame):
     global first_frames
     global previous_contour_counts
+    global last_update_times
     
     # Uncomment the following line to always draw bounding boxes
     # frame = draw_bounding_boxes(frame)
 
     detected_bin = None
+    current_time = time.time()
+    
     if first_frames is None:
-
         # Preprocess the first frame for each bounding box
         first_frames = []
         i = 0
@@ -95,8 +98,19 @@ def process_frame(frame):
         if len(contours) > 0:
             detected_bin = bin_labels[i]
             cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
-            cv2.putText(frame, f'Waste detected in: {detected_bin}', (10, 30),
+            cv2.putText(frame, f'Waste detected in: {detected_bin}', (10, 400),
                         cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
+            
+            # Update the first frame for the detected bin if at least one second has passed
+            if current_time - last_update_times[i] >= 1:
+                first_frame = cv2.GaussianBlur(cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY), (21, 21), 0)
+                first_frames[i] = first_frame
+                last_update_times[i] = current_time
+
+                # Optionally, save the updated first frame for inspection
+                cv2.imwrite(os.path.join('src_livestream', 'images', f'first_frame_{bin_labels[i]}.png'), roi)
+                print(f"Updated first frame for {bin_labels[i]} to src_livestream/images/first_frame_{bin_labels[i]}.png")
+            
             break
 
     return frame

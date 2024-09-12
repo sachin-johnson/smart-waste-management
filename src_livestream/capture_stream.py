@@ -46,10 +46,6 @@ def capture_stream():
     # Set the window size to match the screen's dimensions
     cv2.resizeWindow(window_name, screen_width, screen_height)
 
-    # Introduce a delay to ensure the initial frame is correctly captured
-    print("Waiting for 5 seconds to capture the initial frame...")
-    time.sleep(5)
-
     try:
         while True:
 
