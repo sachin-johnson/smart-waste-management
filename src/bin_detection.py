@@ -20,7 +20,7 @@ def detect_motion(roi, first_frame, threshold=50):
     return contours
 
 # Open video capture
-video_path = './video/bin_detection_7.mp4'
+video_path = './src/video/bin_detection_8.mp4'
 cap = cv2.VideoCapture(video_path)
 
 # Read the first frame as the background for motion detection
