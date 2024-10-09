@@ -44,7 +44,7 @@ curl.exe -X POST https://oauth2.googleapis.com/token `
 | 2       | [Waste Segergation Dataset](https://universe.roboflow.com/chinmay-vinarkar/waste-segergation/dataset/17)                                                                                            | **TXT**(YOLOv5, YOLOv7, YOLOv8, YOLOv9, YOLOv11), **XML**(Pascal VOC), **JSON**(COCO) |
 | 3       | [Zero Waste Dataset](https://universe.roboflow.com/modern-academy-for-engineering/zero-waste-lomnz/dataset/9)                                                                                       | **TXT**(YOLOv5, YOLOv7, YOLOv8, YOLOv9, YOLOv11), **XML**(Pascal VOC), **JSON**(COCO) |
 
-### YOLOv5 Algorithm Execution Command
+### YOLOv5 Algorithm Execution
 
 ```bash
 python train.py \
@@ -56,7 +56,7 @@ python train.py \
   --hyp data/hyps/hyp.custom.yaml
 ```
 
-### YOLOv7 Algorithm Execution Command
+### YOLOv7 Algorithm Execution
 
 ```bash
 python train.py \
@@ -69,13 +69,13 @@ python train.py \
   --workers 8
 ```
 
-### YOLOv8 Algorithm Execution Command
+### YOLOv8 Algorithm Execution
 
 ```bash
 CUDA_VISIBLE_DEVICES=0,1 yolo train data=/home/sachinj/yolo_version5/txt/data.yaml model=yolov8s.pt batch=64 epochs=20 imgsz=640 lr0=0.005 lrf=0.1 momentum=0.9 weight_decay=0.0005 device=0,1
 ```
 
-### YOLOv9 Algorithm Execution Command
+### YOLOv9 Algorithm Execution
 
 ```bash
 torchrun --nproc_per_node=1 train_dual.py --img 640 --batch 48 --epochs 20 --data /home/sachinj/yolo_version9/txt/data.yaml --weights yolov9-s-converted.pt --hyp /home/sachinj/yolo_version9/yolov9/data/hyps/hyp.custom.yaml --cfg models/detect/yolov9-s.yaml --device 0 --workers 8
