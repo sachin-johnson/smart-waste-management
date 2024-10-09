@@ -83,7 +83,3 @@ credentials.json
 # first frame images folder
 
 src_livestream/images/
-
-# dataset
-
-dataset/

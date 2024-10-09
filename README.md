@@ -68,3 +68,15 @@ python train.py \
   --hyp data/hyp.custom.yaml \
   --workers 8
 ```
+
+### YOLOv8 Algorithm Execution Command
+
+```bash
+CUDA_VISIBLE_DEVICES=0,1 yolo train data=/home/sachinj/yolo_version5/txt/data.yaml model=yolov8s.pt batch=64 epochs=20 imgsz=640 lr0=0.005 lrf=0.1 momentum=0.9 weight_decay=0.0005 device=0,1
+```
+
+### YOLOv9 Algorithm Execution Command
+
+```bash
+torchrun --nproc_per_node=1 train_dual.py --img 640 --batch 48 --epochs 20 --data /home/sachinj/yolo_version9/txt/data.yaml --weights yolov9-s-converted.pt --hyp /home/sachinj/yolo_version9/yolov9/data/hyps/hyp.custom.yaml --cfg models/detect/yolov9-s.yaml --device 0 --workers 8
+```
