@@ -38,10 +38,33 @@ curl.exe -X POST https://oauth2.googleapis.com/token `
 
 ### Potentially useful dataset
 
-* https://universe.roboflow.com/jadavpur-university-vlvoc/waste-detection-vlpz1/browse?queryText=&pageSize=50&startingIndex=0&browseQuery=true - Downloaded
-* https://universe.roboflow.com/trash-dataset-for-oriented-bounded-box/trash-detection-1fjjc/browse?queryText=&pageSize=50&startingIndex=0&browseQuery=true - Downloaded
-* https://universe.roboflow.com/nora-slimani/trash-detection-otdmj/dataset/35
-* https://paperswithcode.com/dataset/taco
-* https://universe.roboflow.com/trash-annotations/trash-detection-kcsnu/browse?queryText=&pageSize=50&startingIndex=0&browseQuery=true
-* https://www.kaggle.com/datasets/cubeai/trash-detection-for-yolov8
-* https://universe.roboflow.com/yolov5wastedetection/waste-detection-yljc0/browse?queryText=&pageSize=50&startingIndex=0&browseQuery=true
+| **SNo** | **Dataset**                                                                                                                                                                                         | **Format**                                                                            |
+| ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| 1       | [Classification Model for Waste Materials in Residential Areas Dataset](https://universe.roboflow.com/thesis-project-sacr3/classification-model-for-waste-materials-in-residential-areas/dataset/4) | **TXT**(YOLOv5, YOLOv7, YOLOv8, YOLOv9, YOLOv11), **XML**(Pascal VOC), **JSON**(COCO) |
+| 2       | [Waste Segergation Dataset](https://universe.roboflow.com/chinmay-vinarkar/waste-segergation/dataset/17)                                                                                            | **TXT**(YOLOv5, YOLOv7, YOLOv8, YOLOv9, YOLOv11), **XML**(Pascal VOC), **JSON**(COCO) |
+| 3       | [Zero Waste Dataset](https://universe.roboflow.com/modern-academy-for-engineering/zero-waste-lomnz/dataset/9)                                                                                       | **TXT**(YOLOv5, YOLOv7, YOLOv8, YOLOv9, YOLOv11), **XML**(Pascal VOC), **JSON**(COCO) |
+
+### YOLOv5 Algorithm Execution Command
+
+```bash
+python train.py \
+  --img 640 \
+  --batch 32 \
+  --epochs 20 \
+  --data /home/sachinj/yolo_version5/txt/data.yaml \
+  --weights yolov5s.pt \
+  --hyp data/hyps/hyp.custom.yaml
+```
+
+### YOLOv7 Algorithm Execution Command
+
+```bash
+python train.py \
+  --img 640 \
+  --batch 32 \
+  --epochs 20 \
+  --data /home/sachinj/yolo_version7/txt/data.yaml \
+  --weights yolov7.pt \
+  --hyp data/hyp.custom.yaml \
+  --workers 8
+```
